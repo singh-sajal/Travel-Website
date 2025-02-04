@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="{{ asset('admin/assets/css/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/assets/styles/remixicon.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/assets/styles/styles.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
     <style>
         label.required::after {
             content: "*";
@@ -70,10 +70,12 @@
                             <div class="d-flex align-items-center">
                                 <!-- Success Alert -->
                                 @if (session('success'))
-                                    <div id="success-alert" class="alert alert-success alert-dismissible fade show me-3 mb-0"
+                                    <div id="success-alert"
+                                        class="alert alert-success alert-dismissible fade show me-3 mb-0"
                                         style="min-width: 300px;" role="alert">
                                         <strong>Success!</strong> {{ session('success') }}
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
                                     </div>
                                 @endif
 
@@ -82,7 +84,8 @@
                                     <div id="failure-alert" class="alert alert-danger alert-dismissible fade show mb-0"
                                         style="min-width: 300px;" role="alert">
                                         <strong>Error!</strong> {{ session('failure') }}
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
                                     </div>
                                 @endif
                             </div>

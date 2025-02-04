@@ -1,4 +1,4 @@
-<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+{{-- <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content bg-transparent">
             <div class="card mb-1">
@@ -12,4 +12,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}

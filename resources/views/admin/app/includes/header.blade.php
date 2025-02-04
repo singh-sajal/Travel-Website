@@ -26,12 +26,13 @@
             </button>
 
             <!-- Button Trigger Search Modal -->
-            <div class="topbar-search text-muted d-none d-xl-flex gap-2 align-items-center" data-bs-toggle="modal"
+            {{-- <div class="topbar-search text-muted d-none d-xl-flex gap-2 align-items-center" data-bs-toggle="modal"
                 data-bs-target="#searchModal" type="button">
                 <i class="ti ti-search fs-18"></i>
                 <span class="me-2">Search something..</span>
                 <span class="ms-auto fw-medium">⌘K</span>
-            </div>
+            </div> --}}
+            {{-- <h4>'Welcome back, {{ Auth::user()->name }} 👋</h4> --}}
         </div>
 
         <div class="d-flex align-items-center gap-2">
@@ -42,7 +43,7 @@
                     <i class="ti ti-search fs-22"></i>
                 </button>
             </div>
-            
+
             <!-- Button Trigger Customizer Offcanvas -->
             <div class="topbar-item d-none d-sm-flex">
                 <button class="topbar-link" data-bs-toggle="offcanvas" data-bs-target="#theme-settings-offcanvas"
@@ -110,7 +111,7 @@
                         </a>
 
                         <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item active fw-semibold text-danger">
+                        <a href="{{ route('admin.auth.logout') }}" class="dropdown-item active fw-semibold text-danger">
                             <i class="ti ti-logout me-1 fs-17 align-middle"></i>
                             <span class="align-middle">Sign Out</span>
                         </a>

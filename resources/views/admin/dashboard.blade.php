@@ -1,6 +1,6 @@
 @extends('admin.app.app')
 @section('page-title')
-    'Welcome back, {{ Auth::user()->name }} 👋
+    {{-- 'Welcome back, {{ Auth::user()->name }} 👋 --}}
 @endsection
 
 @section('content')
@@ -20,7 +20,7 @@
                         <h3 class="mb-0 fw-bold">#
                         </h3>
                     </div>
-                    
+
                 </div>
             </div>
         </div><!-- end col -->
@@ -105,7 +105,7 @@
             <div class="card">
                 <div class="d-flex card-header justify-content-between border-bottom border-dashed align-items-center">
                     <h4 class="header-title">Gender</h4>
-                    
+
                 </div>
 
                 <div class="card-body">

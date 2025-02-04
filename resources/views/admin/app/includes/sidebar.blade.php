@@ -37,15 +37,15 @@
                       <span class="menu-text">Dashboard </span>
                   </a>
               </li>
-              {{-- Tesimonial --}}
+              {{-- Banner --}}
               <li class="side-nav-item">
-                  <a data-bs-toggle="collapse" href="#sidebarTestimonial" aria-expanded="false"
-                      aria-controls="sidebarTestimonial" class="side-nav-link">
+                  <a data-bs-toggle="collapse" href="#sidebarBanner" aria-expanded="false"
+                      aria-controls="sidebarBanner" class="side-nav-link">
                       <span class="menu-icon"><i class="ti ti-medical-cross"></i></span>
-                      <span class="menu-text"> Testimonial</span>
+                      <span class="menu-text"> Banner</span>
                       <span class="menu-arrow"></span>
                   </a>
-                  <div class="collapse" id="sidebarTestimonial">
+                  <div class="collapse" id="sidebarBanner">
                       <ul class="sub-menu">
                           <li class="side-nav-item">
                               <a href="#" class="side-nav-link">
@@ -54,21 +54,21 @@
                           </li>
                           <li class="side-nav-item">
                               <a href="#" class="side-nav-link">
-                                  <span class="menu-text">Add New Testimonial</span>
+                                  <span class="menu-text">Add New Banner</span>
                               </a>
                           </li>
                       </ul>
                   </div>
               </li>
-              {{-- Category --}}
+              {{-- Destination --}}
               <li class="side-nav-item">
-                  <a data-bs-toggle="collapse" href="#sidebarCategory" aria-expanded="false"
-                      aria-controls="sidebarCategory" class="side-nav-link">
+                  <a data-bs-toggle="collapse" href="#sidebarDestination" aria-expanded="false"
+                      aria-controls="sidebarDestination" class="side-nav-link">
                       <span class="menu-icon"><i class="ti ti-medical-cross"></i></span>
-                      <span class="menu-text"> Category</span>
+                      <span class="menu-text"> Destination</span>
                       <span class="menu-arrow"></span>
                   </a>
-                  <div class="collapse" id="sidebarCategory">
+                  <div class="collapse" id="sidebarDestination">
                       <ul class="sub-menu">
                           <li class="side-nav-item">
                               <a href="#" class="side-nav-link">
@@ -77,21 +77,21 @@
                           </li>
                           <li class="side-nav-item">
                               <a href="#" class="side-nav-link">
-                                  <span class="menu-text">Add New Category</span>
+                                  <span class="menu-text">Add New Destination</span>
                               </a>
                           </li>
                       </ul>
                   </div>
               </li>
-              {{-- Vendor List and add Vendor --}}
+              {{-- Packages List and add Packages --}}
               <li class="side-nav-item">
-                  <a data-bs-toggle="collapse" href="#sidebarVendor" aria-expanded="false" aria-controls="sidebarVendor"
+                  <a data-bs-toggle="collapse" href="#sidebarPackages" aria-expanded="false" aria-controls="sidebarPackages"
                       class="side-nav-link">
                       <span class="menu-icon"><i class="ti ti-medical-cross"></i></span>
-                      <span class="menu-text"> Vendor</span>
+                      <span class="menu-text"> Packages</span>
                       <span class="menu-arrow"></span>
                   </a>
-                  <div class="collapse" id="sidebarVendor">
+                  <div class="collapse" id="sidebarPackages">
                       <ul class="sub-menu">
                           <li class="side-nav-item">
                               <a href="#" class="side-nav-link">
@@ -100,21 +100,21 @@
                           </li>
                           <li class="side-nav-item">
                               <a href="#" class="side-nav-link">
-                                  <span class="menu-text">Add New Vendor</span>
+                                  <span class="menu-text">Add New Packages</span>
                               </a>
                           </li>
                       </ul>
                   </div>
               </li>
-              {{-- Listing List --}}
+              {{-- Faqs --}}
               <li class="side-nav-item">
-                  <a data-bs-toggle="collapse" href="#sidebarListing" aria-expanded="false" aria-controls="sidebarListing"
+                  <a data-bs-toggle="collapse" href="#sidebarFaqs" aria-expanded="false" aria-controls="sidebarFaqs"
                       class="side-nav-link">
                       <span class="menu-icon"><i class="ti ti-medical-cross"></i></span>
-                      <span class="menu-text"> Listing</span>
+                      <span class="menu-text"> Faqs</span>
                       <span class="menu-arrow"></span>
                   </a>
-                  <div class="collapse" id="sidebarListing">
+                  <div class="collapse" id="sidebarFaqs">
                       <ul class="sub-menu">
                           <li class="side-nav-item">
                               <a href="#" class="side-nav-link">
@@ -132,7 +132,7 @@
 
 
               <li class="side-nav-item">
-                  <a href="#" class="side-nav-link">
+                  <a href="{{ route('admin.auth.logout') }}" class="side-nav-link">
                       <span class="menu-icon"><i class="ti ti-building-hospital"></i></span>
                       <span class="menu-text"> Logout </span>
                   </a>
