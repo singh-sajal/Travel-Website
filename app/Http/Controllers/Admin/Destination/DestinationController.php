@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin\Destination;
 use App\Models\Destination;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Helpers\ToggleHelper;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 
@@ -71,7 +73,7 @@ class DestinationController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
+            'title' => 'required|string|unique:destinations,title',
             'image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
             'start_amount' => 'required|numeric',
             'type' => 'required|in:domestic,international',
@@ -79,6 +81,7 @@ class DestinationController extends Controller
 
         // Upload Image
         if (!file_exists(public_path($this->basePath))) {
+            // return $this->basePath.$request->title;
             mkdir(public_path($this->basePath), 0777, true);
         }
 
@@ -134,7 +137,12 @@ class DestinationController extends Controller
         $destination = Destination::where('uuid', $uuid)->firstOrFail();
 
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
+            'title' => [
+                'required',
+                'string',
+                'max:30',
+                Rule::unique('destinations', 'title')->ignore($destination->id),
+            ],
             'image' => 'sometimes|image|mimes:jpg,jpeg,png|max:2048',
             'start_amount' => 'required|numeric',
             'type' => 'required|in:domestic,international',
@@ -187,6 +195,18 @@ class DestinationController extends Controller
         $destination = Destination::where('uuid', $request->uuid)->firstOrFail();
         $newStatus = !$destination->status;
         $destination->update(['status' => $newStatus]);
+
+        return response()->json([
+            'success' => true,
+            'status' => $newStatus
+        ]);
+    }
+
+    public function toggleFeatured(Request $request)
+    {
+        $destination = Destination::where('uuid', $request->uuid)->firstOrFail();
+        $newStatus = !$destination->is_featured;
+        $destination->update(['is_featured' => $newStatus]);
 
         return response()->json([
             'success' => true,

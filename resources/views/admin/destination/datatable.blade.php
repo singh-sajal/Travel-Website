@@ -3,16 +3,26 @@
         <td><img class="avatar avatar-sm rounded-circle border border-2 border-primary me-3"
                 src="{{ asset($destination->image) }}" alt=""></td>
         <td><a href="{{ route('admin.destination.show', $destination->uuid) }}">{{ $destination->title }}</a></td>
-        <td>{{ $destination->start_amount }}</td>
+        <td>₹ {{ $destination->start_amount }}</td>
         <td>{{ $destination->type }}</td>
         <td>
             <button class="btn btn-{{ $destination->status ? 'success' : 'danger' }} btn-xs btn-pill toggle-destination"
-                    data-uuid="{{ $destination->uuid }}">
-                    <i class="ti {{ $destination->status ? 'ti-eye' : 'ti-eye-off' }} me-1"></i>
-                    <span class="status-text">{{ $destination->status ? 'Active' : 'Inactive' }}</span>
+                data-uuid="{{ $destination->uuid }}">
+                <i class="ti {{ $destination->status ? 'ti-eye' : 'ti-eye-off' }} me-1"></i>
+                <span class="status-text">{{ $destination->status ? 'Active' : 'Inactive' }}</span>
             </button>
         </td>
-        <td>{{ $destination->is_featured }}</td>
+
+        <!-- For Featured Toggle -->
+        <td>
+            <button class="btn btn-{{ $destination->is_featured ? 'success' : 'danger' }} btn-xs btn-pill toggle-item"
+                data-uuid="{{ $destination->uuid }}"
+                data-type="destination"
+                data-field="is_featured">
+                <i class="ti {{ $destination->is_featured ? 'ti-star' : 'ti-star-off' }} me-1"></i>
+                <span class="status-text">{{ $destination->is_featured ? 'Featured' : 'Not Featured' }}</span>
+            </button>
+        </td>
         <td>{{ $destination->created_at->format('d-m-y') }}</td>
         <td>{{ $destination->updated_at->format('d-m-y') }}</td>
         <td>

@@ -8,6 +8,7 @@
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
     <meta content="Coderthemes" name="author" />
     <meta content="{{ csrf_token() }}" name="csrf-token">
+
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('admin/assets/images/favicon.ico') }}">
 
@@ -569,6 +570,8 @@
             if (failureAlert) failureAlert.classList.remove('show');
         }, 4000);
     </script>
+
+    
     @yield('javascripts')
 </body>
 
