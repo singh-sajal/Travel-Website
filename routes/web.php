@@ -33,6 +33,11 @@ Route::name('web.')->group(function () {
     Route::get('captcha',[HomeController::class,'captcha'])->name('captcha');
 
     Route::post('query',[HomeController::class,'queryStore'])->name('query');
+
+    // Footer links
+    Route::get('privacy-policy',[HomeController::class,'privacyPolicy'])->name('privacy-policy');
+    Route::get('shipping',[HomeController::class,'shipping'])->name('shipping');
+    Route::get('terms-and-conditions',[HomeController::class,'termsAndConditions'])->name('terms-and-conditions');
 });
 
 Route::prefix('admin')->name('admin.')->group(function () {
