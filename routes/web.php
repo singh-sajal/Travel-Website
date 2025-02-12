@@ -1,15 +1,17 @@
 <?php
 
-use App\Models\Destination;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Web\Home\HomeController;
 use App\Http\Controllers\Admin\Auth\AuthController;
-use App\Http\Controllers\Admin\Faqs\FaqsController;
-use App\Http\Controllers\Admin\Query\QueryController;
 use App\Http\Controllers\Admin\Banner\BannerController;
-use App\Http\Controllers\Admin\Package\PackageController;
 use App\Http\Controllers\Admin\Dashboard\DashboardController;
 use App\Http\Controllers\Admin\Destination\DestinationController;
+use App\Http\Controllers\Admin\Faqs\FaqsController;
+use App\Http\Controllers\Admin\Package\PackageController;
+use App\Http\Controllers\Admin\Query\QueryController;
+use App\Http\Controllers\Admin\Settings\SettingsController;
+use App\Http\Controllers\Web\Home\HomeController;
+use App\Models\Destination;
+use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -69,6 +71,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // Route::patch('faqs/toggle-status/{uuid}', [FaqsController::class, 'toggleStatus'])->name('faqs.toggleStatus');
         Route::post('faqs/toggle', [FaqsController::class, 'displayFaqsToggle'])->name('faqs.toggle');
         Route::resource('faqs', FaqsController::class);
+
+        //setting routes
+        Route::resource('settings', SettingsController::class);
     });
 });
 
