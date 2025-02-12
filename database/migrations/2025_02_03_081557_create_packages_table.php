@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('destination_id')->nullable()
                 ->references('id')->on('destinations')->onDelete('cascade');
             $table->string('name')->nullable();
+            $table->string('image')->nullable();
             $table->text('description')->nullable();
             $table->string('price')->nullable();
             $table->string('duration_days')->nullable();
@@ -40,3 +41,6 @@ return new class extends Migration
         Schema::dropIfExists('packages');
     }
 };
+
+
+

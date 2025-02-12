@@ -12,7 +12,6 @@
             transform: scale(1.05);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
-        
     </style>
 @endsection
 
@@ -69,7 +68,7 @@
             })
         });
     </script>
-    {{-- the below AJAX code is for the display destination toggle  --}}
+    {{-- the below AJAX code is for the status toggle  --}}
     <script>
         document.addEventListener('click', function(e) {
             const toggleBtn = e.target.closest('.toggle-destination');
@@ -107,4 +106,49 @@
             }
         });
     </script>
+
+    {{-- the below AJAX code is for the featured toggle --}}
+    <script>
+        document.addEventListener('click', function(e) {
+            const toggleBtn = e.target.closest('.toggle-item');
+
+            if (toggleBtn) {
+                e.preventDefault();
+                const uuid = toggleBtn.dataset.uuid;
+                const field = toggleBtn.dataset.field;
+                const type = toggleBtn.dataset.type;
+                const icon = toggleBtn.querySelector('i');
+                const statusText = toggleBtn.querySelector('.status-text');
+
+                fetch("{{ route('admin.destination.toggle_featured') }}", {
+                        method: "POST",
+                        headers: {
+                            "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            uuid,
+                            field,
+                            type
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Update button classes
+                            toggleBtn.classList.remove('btn-success', 'btn-danger');
+                            toggleBtn.classList.add(data.status ? 'btn-success' : 'btn-danger');
+
+                            // Update icon
+                            icon.className = `ti ${data.status ? 'ti-star' : 'ti-star-off'} me-1`;
+
+                            // Update text
+                            statusText.textContent = data.status ? 'Featured' : 'Not Featured';
+                        }
+                    })
+                    .catch(error => console.error("Error:", error));
+            }
+        });
+    </script>
+
 @endsection

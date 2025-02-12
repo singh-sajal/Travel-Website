@@ -2,8 +2,12 @@
 
 use App\Models\Destination;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Web\Home\HomeController;
 use App\Http\Controllers\Admin\Auth\AuthController;
+use App\Http\Controllers\Admin\Faqs\FaqsController;
+use App\Http\Controllers\Admin\Query\QueryController;
 use App\Http\Controllers\Admin\Banner\BannerController;
+use App\Http\Controllers\Admin\Package\PackageController;
 use App\Http\Controllers\Admin\Dashboard\DashboardController;
 use App\Http\Controllers\Admin\Destination\DestinationController;
 
@@ -18,9 +22,18 @@ use App\Http\Controllers\Admin\Destination\DestinationController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::redirect('/', 'web/home');
+Route::name('web.')->group(function () {
+    // Common page routes
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('about', [HomeController::class, 'about'])->name('about');
+    Route::get('contact', [HomeController::class, 'contact'])->name('contact');
+    // package route
+    Route::get('destination/{uuid}/packages',[HomeController::class,'package'])->name('package');
+    Route::get('captcha',[HomeController::class,'captcha'])->name('captcha');
+
+    Route::post('query',[HomeController::class,'queryStore'])->name('query');
+});
 
 Route::prefix('admin')->name('admin.')->group(function () {
 
@@ -33,9 +46,24 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-        Route::post('/admin/banner/toggle', [BannerController::class, 'displayBannerToggle'])->name('banner.toggle');
+
+        Route::post('banner/toggle', [BannerController::class, 'displayBannerToggle'])->name('banner.toggle');
         Route::resource('banner', BannerController::class);
+
         Route::post('destination/toggle', [DestinationController::class, 'displayDestinationToggle'])->name('destination.toggle');
+        Route::post('destination/toggle-featured', [DestinationController::class, 'toggleFeatured'])->name('destination.toggle_featured');
         Route::resource('destination', DestinationController::class);
+
+        Route::post('package/toggle', [PackageController::class, 'displayPackageToggle'])->name('package.toggle');
+        Route::post('package/toggle-featured', [PackageController::class, 'toggleFeatured'])->name('package.toggle_featured');
+        Route::resource('package', PackageController::class);
+
+        Route::resource('query', QueryController::class);
+
+
+        // Route::patch('faqs/toggle-status/{uuid}', [FaqsController::class, 'toggleStatus'])->name('faqs.toggleStatus');
+        Route::post('faqs/toggle', [FaqsController::class, 'displayFaqsToggle'])->name('faqs.toggle');
+        Route::resource('faqs', FaqsController::class);
     });
 });
+

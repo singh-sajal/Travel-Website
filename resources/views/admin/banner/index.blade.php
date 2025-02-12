@@ -22,6 +22,14 @@
                             data-uuid="{{ $banner->uuid }}" data-status="{{ $banner->status }}">
                             <i class="{{ $banner->status ? 'ti ti-eye' : 'fa-solid fa-eye-slash' }}"></i>
                         </a>
+                        {{-- <button class="btn btn-{{ $banner->status ? 'success' : 'danger' }} btn-xs btn-pill position-absolute top-0 end-0 m-2 toggle-banner"
+                            data-uuid="{{ $banner->uuid }}"
+                            data-type="banner"
+                            data-field="status">
+                            <i class="ti {{ $banner->status ? 'ti-eye' : 'ti-eye-off' }} me-1"></i>
+                            <span class="status-text">{{ $banner->status ? 'Active' : 'Inactive' }}</span>
+                        </button> --}}
+
 
                         <!-- Banner Image -->
                         <div class="my-3">

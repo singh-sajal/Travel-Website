@@ -1,4 +1,4 @@
-{{-- @forelse ($banners as $banner)
+@forelse ($banners as $banner)
     <tr>
         <td><img class="avatar avatar-sm rounded-circle border border-2 border-primary me-3" src="{{ asset($testimonial->avatar) }}" alt=""></td>
         <td>{{ $banner->name }}</td>
@@ -23,4 +23,4 @@
     </tr>
 @endforelse
 
- --}}
+
