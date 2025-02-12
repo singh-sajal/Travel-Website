@@ -6,7 +6,7 @@
                 <script>
                     document.write(new Date().getFullYear())
                 </script> © Osen - By <span
-                    class="fw-bold text-decoration-underline text-uppercase text-reset fs-12">Coderthemes</span>
+                    class="fw-bold text-decoration-underline text-uppercase text-reset fs-12">Ilika Soft Tech Pvt  Ltd.</span>
             </div>
             <div class="col-md-6">
                 <div class="text-md-end footer-links d-none d-md-block">

@@ -15,6 +15,19 @@ use Illuminate\Support\Facades\Validator;
 class HomeController extends Controller
 {
     use CaptchaGenerator;
+
+    protected $contact = [
+        'phone' => "755258456",
+        'email' => "demo@gmail.com",
+        'address' => "96, IDPL, Rishikesh",
+        'social_links' => [
+            'facebook' => 'facebook.com',
+            'instagram' => 'instagra.com',
+            'youtube' => 'youtube.com',
+            'website' => 'website.com'
+        ]
+    ];
+
     public function index()
     {
         $domesticDestinations = Destination::where('type', 'domestic')->where('status', 1)->where('is_featured', 1)->get();
@@ -29,16 +42,7 @@ class HomeController extends Controller
 
     public function contact()
     {
-        $contact = [
-            'phone' => "755258456",
-            'email' => "demo@gmail.com",
-            'address' => "96, IDPL, Rishikesh",
-            'social_links' => [
-                'facebook' => 'facebook.com',
-                'instagram' => 'instagra.com',
-                'youtube' => 'youtube.com',
-            ]
-        ];
+        $contact = $this->contact;
         return view('web.contact', compact('contact'));
     }
 
@@ -85,5 +89,16 @@ class HomeController extends Controller
         if (Query::Create($data)) {
             return redirect()->back()->with('success','We will contact you soon...');
         }
+    }
+
+    public function privacyPolicy(){
+        $contact = $this->contact;
+        return view('web.privacyPolicy',compact('contact'));
+    }
+    public function shipping(){
+        return view('web.shipping&delivery');
+    }
+    public function termsAndConditions(){
+        return view('web.terms&conditions');
     }
 }

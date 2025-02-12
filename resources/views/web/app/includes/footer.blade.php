@@ -29,13 +29,12 @@
                     <div class="footer-widget">
                         <h4 class="footer-widget-title">Quick Link</h4>
                         <ul class="footer-links">
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="contact.html">Contact Us</a></li>
-                            <li><a href="about.html">About Us</a></li>
-                            <li><a href="refund-policy.html">Refund Policy</a></li>
-                            <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                            <li><a href="terms-and-conditions.html">Terms and Conditions</a></li>
-                            <li><a href="shipping-and-delivery-policy.html">Shipping and Delivery Policy</a></li>
+                            <li><a href="{{ route('web.home') }}">Home</a></li>
+                            <li><a href="{{ route('web.contact') }}">Contact Us</a></li>
+                            <li><a href="{{ route('web.about') }}">About Us</a></li>
+                            <li><a href="{{ route('web.privacy-policy') }}">Privacy Policy</a></li>
+                            <li><a href="{{ route('web.terms-and-conditions') }}">Terms and Conditions</a></li>
+                            <li><a href="{{ route('web.shipping') }}">Shipping and Delivery Policy</a></li>
                         </ul>
                     </div>
                 </div>
