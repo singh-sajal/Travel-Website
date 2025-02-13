@@ -1,5 +1,48 @@
 @extends('web.app.app')
 @section('css')
+    <style>
+        .package-thumb {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-lavel {
+            position: absolute;
+            bottom: 0;
+            /* Attach to the bottom */
+            left: 0;
+            /* Align to the left */
+            background: #d60000;
+            color: #fff;
+            padding: 5px 12px;
+            font-size: 14px;
+            font-weight: bold;
+            z-index: 20 !important;
+            /* Ensure it stays on top */
+            clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+            /* Ribbon shape */
+        }
+
+        .share-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            padding: 8px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            z-index: 25;
+            /* Higher than card-lavel */
+        }
+
+        .package-thumb:hover .share-btn {
+            opacity: 1;
+        }
+    </style>
 @endsection
 @section('topBar')
     <div class="topbar-area topbar-style-one">
@@ -54,7 +97,8 @@
                 </div>
 
             </div>
-            <div class="row g-4">
+            {{-- original code --}}
+            {{-- <div class="row g-4">
                 @foreach ($destination->package as $package)
                     <div class="col-lg-4 col-md-6">
                         <div class="package-card-alpha">
@@ -89,7 +133,118 @@
                     </div>
                 @endforeach
 
+            </div> --}}
+            {{-- generated  --}}
+            <div class="row g-4">
+                @foreach ($destination->package as $package)
+                    <div class="col-lg-4 col-md-6">
+                        <div class="package-card-alpha">
+                            <div class="package-thumb">
+                                <a href="#contact"><img src="{{ asset($package->image) }}" alt=""></a>
+                                <p class="card-lavel">
+                                    <i class="bi bi-clock"></i>
+                                    <span>{{ $package->duration_nights }} Night & {{ $package->duration_days }} Days</span>
+                                </p>
+                                <!-- Share Button -->
+                                <div class="share-btn" data-bs-toggle="modal" data-bs-target="#shareModal"
+                                    data-url="{{ url()->current() }}">
+                                    <i class="fa-solid fa-share-nodes"></i>
+                                </div>
+                            </div>
+                            <div class="package-card-body">
+                                <h3 class="p-card-title"><a href="#contact">Beautiful {{ $destination->title }}
+                                        {{ $package->duration_nights }} Night {{ $package->duration_days }} Days</a></h3>
+                                <div class="icon-part row">
+                                    <div class="icon-txt col-lg-3"><i class="fa-solid fa-car"></i><span>Drive</span></div>
+                                    <div class="icon-txt col-lg-3"><i class="fa-solid fa-hotel"></i><span>Hotel</span></div>
+                                    <div class="icon-txt col-lg-3"><i class="fa-solid fa-bus"></i><span>Tour</span></div>
+                                    <div class="icon-txt col-lg-3"><i class="fa-solid fa-utensils"></i><span>Meal</span>
+                                    </div>
+                                </div>
+                                <div class="p-card-bottom">
+                                    <div class="book-btn">
+                                        <a href="#contact">Get Quotes <i class='bx bxs-right-arrow-alt'></i></a>
+                                    </div>
+                                    <div class="p-card-info">
+                                        <span>Starting From</span>
+                                        <h6>₹{{ $package->price }} <span>Per Person</span></h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
             </div>
+
+            <!-- Paste the Bootstrap Share Modal Here (Outside the foreach loop) -->
+            <div class="modal fade" id="shareModal" tabindex="-1" aria-labelledby="shareModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="shareModalLabel">Share This Package</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <p>Share this package with your friends:</p>
+                            <div class="d-flex justify-content-center gap-3">
+                                <a id="whatsappShare" class="btn btn-success" target="_blank">
+                                    <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                                </a>
+                                <a id="facebookShare" class="btn btn-primary" target="_blank">
+                                    <i class="fa-brands fa-facebook"></i> Facebook
+                                </a>
+                            </div>
+                            <div class="d-flex justify-content-center gap-3 mt-2">
+                                <a id="twitterShare" class="btn btn-info" target="_blank">
+                                    <i class="fa-brands fa-twitter"></i> Twitter
+                                </a>
+                                <a id="instagramShare" class="btn btn-danger" target="_blank">
+                                    <i class="fa-brands fa-instagram"></i> Instagram
+                                </a>
+                            </div>
+                            <div class="mt-3">
+                                <input type="text" id="shareLink" class="form-control" readonly>
+                                <button class="btn btn-secondary mt-2" onclick="copyLink()">
+                                    <i class="fa-solid fa-copy"></i> Copy Link
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    var shareModal = document.getElementById('shareModal');
+
+                    shareModal.addEventListener('show.bs.modal', function(event) {
+                        var button = event.relatedTarget;
+                        var shareUrl = button.getAttribute('data-url'); // Get the package URL
+
+                        document.getElementById("whatsappShare").href = "https://api.whatsapp.com/send?text=" +
+                            encodeURIComponent(shareUrl);
+                        document.getElementById("facebookShare").href =
+                            "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(shareUrl);
+                        document.getElementById("twitterShare").href = "https://twitter.com/intent/tweet?url=" +
+                            encodeURIComponent(shareUrl);
+                        document.getElementById("instagramShare").href = "https://www.instagram.com/?url=" +
+                            encodeURIComponent(shareUrl);
+                        document.getElementById("shareLink").value = shareUrl;
+                    });
+                });
+
+                // Copy Link Function
+                function copyLink() {
+                    var copyText = document.getElementById("shareLink");
+                    copyText.select();
+                    copyText.setSelectionRange(0, 99999); // For mobile devices
+                    document.execCommand("copy");
+                    alert("Link copied: " + copyText.value);
+                }
+            </script>
+
+
+
         </div>
     </div>
 
@@ -107,8 +262,8 @@
                     <div class="slider-arrows text-center d-lg-flex d-none justify-content-end mb-3">
                         <div class="testi-prev custom-swiper-prev" tabindex="0" role="button"
                             aria-label="Previous slide"> <i class="bi bi-chevron-left"></i> </div>
-                        <div class="testi-next custom-swiper-next" tabindex="0" role="button" aria-label="Next slide"><i
-                                class="bi bi-chevron-right"></i></div>
+                        <div class="testi-next custom-swiper-next" tabindex="0" role="button"
+                            aria-label="Next slide"><i class="bi bi-chevron-right"></i></div>
                     </div>
                 </div>
             </div>
@@ -425,6 +580,35 @@
             event.preventDefault();
             var captchaImage = document.getElementById('captchaImage');
             captchaImage.src = "{{ route('web.captcha') }}";
+        }
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var shareModal = document.getElementById('shareModal');
+
+            shareModal.addEventListener('show.bs.modal', function(event) {
+                var button = event.relatedTarget;
+                var shareUrl = button.getAttribute('data-url'); // Get the package URL
+
+                document.getElementById("whatsappShare").href = "https://api.whatsapp.com/send?text=" +
+                    encodeURIComponent(shareUrl);
+                document.getElementById("facebookShare").href =
+                    "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(shareUrl);
+                document.getElementById("twitterShare").href = "https://twitter.com/intent/tweet?url=" +
+                    encodeURIComponent(shareUrl);
+                document.getElementById("instagramShare").href = "https://www.instagram.com/?url=" +
+                    encodeURIComponent(shareUrl);
+                document.getElementById("shareLink").value = shareUrl;
+            });
+        });
+
+        // Copy Link Function
+        function copyLink() {
+            var copyText = document.getElementById("shareLink");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); // For mobile devices
+            document.execCommand("copy");
+            alert("Link copied: " + copyText.value);
         }
     </script>
 @endsection
