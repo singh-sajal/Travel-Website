@@ -10,6 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    <script></script>
 </head>
 
 <body>
@@ -42,10 +43,10 @@
                     <form action="agent.verifyDetails" method="POST" enctype="multipart/form-data">
                         @csrf
 
-                        <!-- Phone Verification -->
+                        <!-- Phone Verification Section -->
                         <div class="mb-3">
                             <label class="form-label">Mobile Number</label>
-                            <div class="input-group">
+                            <div class="input-group" id="phoneVerification"> <!-- Added ID -->
                                 <input type="text" class="form-control" value="{{ $agent->phone }}" readonly>
                                 @if ($agent->phone_verified == 1)
                                     <i class="fa-solid fa-check text-success fs-4 mt-2"></i>
@@ -56,11 +57,10 @@
                             </div>
                         </div>
 
-
-                        <!-- Email Verification -->
+                        <!-- Email Verification Section -->
                         <div class="mb-3">
                             <label class="form-label">Email</label>
-                            <div class="input-group">
+                            <div class="input-group" id="emailVerification"> <!-- Added ID -->
                                 <input type="email" class="form-control" value="{{ $agent->email }}" readonly>
                                 @if ($agent->email_verified == 1)
                                     <i class="fa-solid fa-check text-success fs-4 my-2 mt-2"></i>
@@ -70,6 +70,7 @@
                                 @endif
                             </div>
                         </div>
+
 
                         <!-- Aadhaar Front Image -->
                         <div class="mb-3">
@@ -248,28 +249,39 @@
                 })
                 .then(response => response.json())
                 .then(data => {
+                    let phoneHTML = `
+                        <input type="text" class="form-control mb-2" value="{{ $agent->phone }}" readonly>
+                    `;
+
                     if (data.phone_verified) {
-                        document.getElementById("phoneVerification").innerHTML =
-                            '<i class="fa-solid fa-check text-success fs-4 mt-2"></i>';
+                        phoneHTML += '<i class="fa-solid fa-check text-success fs-4 mt-2"></i>';
                     } else {
-                        document.getElementById("phoneVerification").innerHTML =
-                            '<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#otpModal" onclick="sendOTP(\'Whatsapp\')">Send OTP</button>';
+                        phoneHTML += `
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#otpModal" onclick="sendOTP('Whatsapp')">Send OTP</button>
+                        `;
                     }
+                    document.getElementById("phoneVerification").innerHTML = phoneHTML;
+
+                    let emailHTML = `
+                        <input type="text" class="form-control mb-2" value="{{ $agent->email }}" readonly>
+                    `;
 
                     if (data.email_verified) {
-                        document.getElementById("emailVerification").innerHTML =
-                            '<i class="fa-solid fa-check text-success fs-4 mt-2"></i>';
+                        emailHTML += '<i class="fa-solid fa-check text-success fs-4 mt-2"></i>';
                     } else {
-                        document.getElementById("emailVerification").innerHTML =
-                            '<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#otpModal" onclick="sendOTP(\'email\')">Send OTP</button>';
+                        emailHTML += `
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#otpModal" onclick="sendOTP('email')">Send OTP</button>
+                        `;
                     }
+                    document.getElementById("emailVerification").innerHTML = emailHTML;
                 })
                 .catch(error => console.error("Error checking verification status:", error));
         }
 
-        // Check verification status every 1 seconds
+        // Check verification status every 5 seconds
         setInterval(checkVerificationStatus, 5000);
     </script>
+
 
 </body>
 
