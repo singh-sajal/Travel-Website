@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Web\Home;
 
 use App\Models\Query;
-use App\Models\Package;
+use App\Models\Policy;
 use App\Models\Destination;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -17,7 +17,7 @@ class HomeController extends Controller
     use CaptchaGenerator;
 
     protected $contact = [
-        'phone' => "755258456",
+        'phone' => "7552582222",
         'email' => "demo@gmail.com",
         'address' => "96, IDPL, Rishikesh",
         'social_links' => [
@@ -93,11 +93,14 @@ class HomeController extends Controller
 
     public function privacyPolicy(){
         $contact = $this->contact;
-        return view('web.privacyPolicy',compact('contact'));
+        $policy = Policy::where('key','privacy')->first();
+        return view('web.privacyPolicy',compact('contact','policy'));
     }
+
     public function shipping(){
         return view('web.shipping&delivery');
     }
+
     public function termsAndConditions(){
         return view('web.terms&conditions');
     }

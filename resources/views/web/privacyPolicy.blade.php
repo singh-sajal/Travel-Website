@@ -51,7 +51,7 @@
                 <div class="row justify-content-center align-items-center">
                     <div class="col-lg-12 mt-5 mt-lg-0">
                         <div class="about-tab-wrap">
-                            <h2>Privacy Policy</h2>
+                            {{-- <h2>Privacy Policy</h2>
 
                             <div class="about-tab-switcher">
                             </div>
@@ -171,8 +171,12 @@
                                     <li><strong>By email:</strong> {{ $contact['social_links']['website'] }}</li>
                                     <li><strong>By phone:</strong> +91-{{ $contact['phone'] }}</li>
                                 </div>
-                            </div>
+                            </div> --}}
+
+
+                            {!! $policy->description !!}
                         </div>
+
                     </div>
                 </div>
             </div>

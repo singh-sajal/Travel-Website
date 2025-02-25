@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+@php
+    use App\Models\Setting;
+
+    $logo = Setting::where('key', 'logo')->first();
+    $fevicon = Setting::where('key', 'fevicon')->first();
+@endphp
 
 <head>
     <meta charset="utf-8" />
@@ -9,7 +15,7 @@
     <meta content="Coderthemes" name="author" />
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="{{ asset($fevicon->value)}}">
 
     <!-- Theme Config Js -->
     <script src="{{ asset('admin/assets/js/config.js') }}"></script>
@@ -31,8 +37,8 @@
             <div class="col-xl-4 col-lg-5 col-md-6">
                 <div class="card overflow-hidden text-center h-100 p-xxl-4 p-3 mb-0">
                     <a href="index.html" class="auth-brand mb-3">
-                        <img src="{{ asset('web/assets/img/logo/logo1.png') }}" alt="dark logo" height="24" class="logo-dark">
-                        <img src="{{ asset('web/assets/img/logo/logo1.png') }}" alt="logo light" height="24" class="logo-light">
+                        <img src="{{ asset($logo->value) }}" alt="dark logo" height="24" class="logo-dark">
+                        <img src="{{ asset($logo->value) }}" alt="logo light" height="24" class="logo-light">
                     </a>
 
                     <h3 class="fw-semibold mb-2">Login your account</h3>

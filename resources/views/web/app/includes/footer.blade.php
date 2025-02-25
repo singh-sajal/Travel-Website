@@ -15,12 +15,12 @@
                         <div class="footer-social-wrap">
                             <h5>Follow Us On:</h5>
                             <ul class="footer-social-links justify-content-lg-start justify-content-center">
-                                <li><a
-                                        href="https://www.instagram.com/travelleads.in/profilecard/?igsh=dWZlY3R2ZHFtOTlj"><i
-                                            class='bx bxl-instagram-alt'></i></a></li>
-                                <li><a
-                                        href="https://api.whatsapp.com/send?phone=918062182339&amp;text=Hello,%20Travel%20Leads%20!%20Please%20share%20exclusive%20Shimla%20tour%20packages%20deals"><i
-                                            class="bx bxl-whatsapp-square"></i></a></li>
+                                @foreach ($social as $link)
+                                    <li><a href="{{ $link->value ?? '' }}">
+                                        <i class='bx bxl-{{ $link->key }}'></i>
+                                    </a>
+                                    </li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
@@ -146,8 +146,7 @@
                 </div>
                 <div class="col-lg-4  order-lg-2 order-1">
                     <div class="footer-logo text-center">
-                        <a href="index.html"><img src="{{ asset('web/assets/images/logo-footer.png') }}"
-                                alt=""></a>
+                        <a href="{{ route('web.home') }}"><img src="{{ asset($logo->value ?? '') }}" alt=""></a>
                     </div>
                 </div>
             </div>
@@ -155,11 +154,11 @@
     </div>
 </div>
 
-<div class="nowcalling">
-    <div class="callcol"><a href="tel:+918062182339"><i class="fas fa-phone"></i> Call Now</a></div>
+{{-- <div class="nowcalling">
+    <div class="callcol"><a href="tel:+917492845786"><i class="fas fa-phone"></i> Call Now</a></div>
     <div class="whatsappcol"><a
             href="https://api.whatsapp.com/send?phone=918062182339&amp;text=Hello,%20Travel%20Leads%20!%20I%20need%20more%20info"><i
                 class="fab fa-whatsapp"></i> WhatsApp</a></div>
-    <div class="mapcol1"><a href="https://www.instagram.com/travelleads.in/profilecard/?igsh=dWZlY3R2ZHFtOTlj"><i
-                class="fab fa-instagram"></i> Instagram</a></div>
-</div>
+    <div class="mapcol1"><a href="{{ $instagram->value ?? '' }}"><i class="fab fa-instagram"></i> Instagram</a>
+    </div>
+</div> --}}

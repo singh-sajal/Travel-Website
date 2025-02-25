@@ -2,6 +2,12 @@
 <html lang="en">
 
 <head>
+    @php
+        use App\Models\Setting;
+
+        $logo = Setting::where('key', 'logo')->first();
+        $fevicon = Setting::where('key', 'fevicon')->first();
+    @endphp
     <meta charset="utf-8" />
     <title>Admin-@yield('title')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +16,7 @@
     <meta content="{{ csrf_token() }}" name="csrf-token">
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ asset('admin/assets/images/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ asset($fevicon->value) }}">
 
     <!-- Theme Config Js -->
     <script src="{{ asset('admin/assets/js/config.js') }}"></script>
@@ -131,7 +137,7 @@
 
 
     <script src="{{ asset('admin/assets/js/toastr.min.js') }}"></script>
-    <script src="{{ asset('admin/assets/js/ajax-engine-1.0.js') }}"></script>
+ 
     {{-- alerts for 4 seconds only --}}
     <script>
         // Automatically dismiss alerts after 4 seconds
@@ -143,7 +149,7 @@
         }, 4000);
     </script>
 
-    
+
     @yield('javascripts')
 </body>
 

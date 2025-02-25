@@ -85,14 +85,15 @@
                     <div class="col-lg-4 col-md-6">
                         <div class="package-card-alpha">
                             <div class="package-thumb">
-                                <a href="{{ route('web.package', $destination->uuid) }}"><img src="{{ asset($destination->image) }}" alt=""></a>
+                                <a href="{{ route('web.package', $destination->uuid) }}"><img
+                                        src="{{ asset($destination->image) }}" alt=""></a>
                                 <p class="card-lavel">
                                     <i class="bi bi-clock"></i> <span>2 Nights & 3 Days</span>
                                 </p>
                             </div>
 
                             <div class="package-card-body">
-                                <h3 class="p-card-title"><a href="shimla-packages.html">{{ $destination->title }} Tour
+                                <h3 class="p-card-title"><a href="{{ route('web.package', $destination->uuid) }}">{{ $destination->title }} Tour
                                         Package</a></h3>
                                 <div class="icon-part row">
                                     <div class="icon-txt col-lg-3"><i class="fa-solid fa-car"></i><span>Drive</span></div>
@@ -103,7 +104,7 @@
                                 </div>
                                 <div class="p-card-bottom">
                                     <div class="book-btn">
-                                        <a href="shimla-packages.html">View More <i class='bx bxs-right-arrow-alt'></i></a>
+                                        <a href="{{ route('web.package', $destination->uuid) }}">View More <i class='bx bxs-right-arrow-alt'></i></a>
                                     </div>
 
                                     <div class="p-card-info">
@@ -149,12 +150,12 @@
                         <div class="swiper-slide">
                             <div class="destination-card-style-one">
                                 <div class="d-card-thumb">
-                                    <a href="#"><img src="{{ asset($destination->image) }}" alt=""></a>
+                                    <a href="shimla-packages.html"><img src="{{ asset($destination->image) }}"
+                                            alt=""></a>
                                 </div>
                                 <div class="d-card-overlay">
                                     <div class="d-card-content">
-                                        <h3 class="d-card-title"><a
-                                                href="shimla-packages.html">{{ $destination->title }}</a></h3>
+                                        <h3 class="d-card-title"><a href="shimla-packages.html">{{ $destination->title }}</a></h3>
                                         <div class="d-card-info">
                                             <div class="place-count"><span>20</span> Place</div>
                                             <div class="hotel-count"><span>25</span> Hotel</div>
@@ -176,7 +177,6 @@
         </div>
     </div>
     {{-- end of  Top Domestic Destinations --}}
-
     {{-- Start of International Destinations --}}
     <div class="package-area package-style-one pt-110 ">
         <div class="container">
@@ -201,7 +201,8 @@
                                 </p>
                             </div>
                             <div class="package-card-body">
-                                <h3 class="p-card-title"><a href="thailand-packages.html">{{ $destination->title }} Tour Package</a></h3>
+                                <h3 class="p-card-title"><a href="thailand-packages.html">{{ $destination->title }} Tour
+                                        Package</a></h3>
                                 <div class="icon-part row">
                                     <div class="icon-txt col-lg-3"><i class="fa-solid fa-car"></i><span>Drive</span></div>
                                     <div class="icon-txt col-lg-3"><i class="fa-solid fa-hotel"></i><span>Hotel</span>
@@ -212,7 +213,7 @@
                                 </div>
                                 <div class="p-card-bottom">
                                     <div class="book-btn">
-                                        <a href="thailand-packages.html">View More <i
+                                        <a href="{{ route('web.package', $destination->uuid) }}">View More <i
                                                 class='bx bxs-right-arrow-alt'></i></a>
                                     </div>
                                     <div class="p-card-info">

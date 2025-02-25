@@ -43,6 +43,26 @@
             opacity: 1;
         }
     </style>
+    <style>
+        @keyframes highlight {
+            0% {
+                border-color: #d60000;
+            }
+
+            50% {
+                border-color: #d60000;
+            }
+
+            100% {
+                border-color: transparent;
+            }
+        }
+
+        .highlight-package {
+            animation: highlight 3s ease;
+            border: 2px solid transparent;
+        }
+    </style>
 @endsection
 @section('topBar')
     <div class="topbar-area topbar-style-one">
@@ -97,45 +117,10 @@
                 </div>
 
             </div>
-            {{-- original code --}}
-            {{-- <div class="row g-4">
-                @foreach ($destination->package as $package)
-                    <div class="col-lg-4 col-md-6">
-                        <div class="package-card-alpha">
-                            <div class="package-thumb">
-                                <a href="#contact"><img src="{{ asset($package->image) }}" alt=""></a>
-                                <p class="card-lavel">
-                                    <i class="bi bi-clock"></i> <span>{{ $package->duration_nights }} Night &
-                                        {{ $package->duration_days }} Days</span>
-                                </p>
-                            </div>
-                            <div class="package-card-body">
-                                <h3 class="p-card-title"><a href="#contact">Beautiful {{ $destination->title }}
-                                        {{ $package->duration_nights }} Night {{ $package->duration_days }} Days</a></h3>
-                                <div class="icon-part row">
-                                    <div class="icon-txt col-lg-3"><i class="fa-solid fa-car"></i><span>Drive</span></div>
-                                    <div class="icon-txt col-lg-3"><i class="fa-solid fa-hotel"></i><span>Hotel</span></div>
-                                    <div class="icon-txt col-lg-3"><i class="fa-solid fa-bus"></i><span>Tour</span></div>
-                                    <div class="icon-txt col-lg-3"><i class="fa-solid fa-utensils"></i><span>Meal</span>
-                                    </div>
-                                </div>
-                                <div class="p-card-bottom">
-                                    <div class="book-btn">
-                                        <a href="#contact">Get Quotes <i class='bx bxs-right-arrow-alt'></i></a>
-                                    </div>
-                                    <div class="p-card-info">
-                                        <span>Starting From</span>
-                                        <h6>₹{{ $package->price }} <span>Per Person</span></h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-
-            </div> --}}
-            {{-- generated  --}}
             <div class="row g-4">
+                @php
+                    $id = 0;
+                @endphp
                 @foreach ($destination->package as $package)
                     <div class="col-lg-4 col-md-6">
                         <div class="package-card-alpha">
@@ -147,12 +132,15 @@
                                 </p>
                                 <!-- Share Button -->
                                 <div class="share-btn" data-bs-toggle="modal" data-bs-target="#shareModal"
-                                    data-url="{{ url()->current() }}">
+                                    data-url="{{ url()->current() . '?id=' . $id }}">
+                                    @php
+                                        ++$id;
+                                    @endphp
                                     <i class="fa-solid fa-share-nodes"></i>
                                 </div>
                             </div>
                             <div class="package-card-body">
-                                <h3 class="p-card-title"><a href="#contact">Beautiful {{ $destination->title }}
+                                <h3 class="p-card-title"><a href="#contact">{{ $package->name }}
                                         {{ $package->duration_nights }} Night {{ $package->duration_days }} Days</a></h3>
                                 <div class="icon-part row">
                                     <div class="icon-txt col-lg-3"><i class="fa-solid fa-car"></i><span>Drive</span></div>
@@ -175,7 +163,6 @@
                     </div>
                 @endforeach
             </div>
-
             <!-- Paste the Bootstrap Share Modal Here (Outside the foreach loop) -->
             <div class="modal fade" id="shareModal" tabindex="-1" aria-labelledby="shareModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -610,5 +597,44 @@
             document.execCommand("copy");
             alert("Link copied: " + copyText.value);
         }
+    </script>
+    <script>
+        function refreshCaptcha(event) {
+            event.preventDefault();
+            var captchaImage = document.getElementById('captchaImage');
+            captchaImage.src = "{{ route('web.captcha') }}";
+        }
+
+        // Existing share modal script here...
+
+        // New code for scrolling to package
+        document.addEventListener("DOMContentLoaded", function() {
+            // Check for 'id' parameter in URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const packageId = urlParams.get('id');
+
+            if (packageId !== null) {
+                const packages = document.querySelectorAll('.col-lg-4.col-md-6');
+                const id = parseInt(packageId, 10);
+
+                if (!isNaN(id) && id >= 0 && id < packages.length) {
+                    const targetPackage = packages[id];
+
+                    // Add highlight class
+                    targetPackage.classList.add('highlight-package');
+
+                    // Scroll to the package smoothly
+                    targetPackage.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+
+                    // Remove highlight after animation
+                    setTimeout(() => {
+                        targetPackage.classList.remove('highlight-package');
+                    }, 3000);
+                }
+            }
+        });
     </script>
 @endsection

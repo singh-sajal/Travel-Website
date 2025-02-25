@@ -1,4 +1,4 @@
-@extends('admin.app')
+@extends('admin.app.app')
 @section('title', 'Company Policy')
 @section('page-title', 'Policy List')
 @section('breducrumb')
@@ -176,7 +176,7 @@
 @endsection
 
 @section('javascripts')
-    @php
+    {{-- @php
         $url = route('admin.policy.index');
         $columns = [
             //
@@ -188,6 +188,6 @@
         // Available Options
         // $options = ['showRefreshButton', 'reorderColumn', 'noSearching', 'showSearchBuilder', 'noActions'];
         $options = ['showRefreshButton'];
-    @endphp
-    @include('admin.app.datatable', compact('url', 'columns', 'options'));
+    @endphp --}}
+    {{-- @include('admin.app.datatable', compact('url', 'columns', 'options')); --}}
 @endsection

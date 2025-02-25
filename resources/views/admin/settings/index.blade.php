@@ -298,6 +298,5 @@
 @endsection
 
 @section('javascripts')
-    
 <script src="{{ asset('admin/assets/js/ajax-engine-1.0.js') }}"></script>
 @endsection

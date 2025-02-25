@@ -1,16 +1,19 @@
 <?php
 
-use App\Http\Controllers\Admin\Auth\AuthController;
-use App\Http\Controllers\Admin\Banner\BannerController;
-use App\Http\Controllers\Admin\Dashboard\DashboardController;
-use App\Http\Controllers\Admin\Destination\DestinationController;
-use App\Http\Controllers\Admin\Faqs\FaqsController;
-use App\Http\Controllers\Admin\Package\PackageController;
-use App\Http\Controllers\Admin\Query\QueryController;
-use App\Http\Controllers\Admin\Settings\SettingsController;
-use App\Http\Controllers\Web\Home\HomeController;
 use App\Models\Destination;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Agent\MailController;
+use App\Http\Controllers\Agent\AgentController;
+use App\Http\Controllers\Web\Home\HomeController;
+use App\Http\Controllers\Admin\Auth\AuthController;
+use App\Http\Controllers\Admin\Faqs\FaqsController;
+use App\Http\Controllers\Admin\Query\QueryController;
+use App\Http\Controllers\Admin\Banner\BannerController;
+use App\Http\Controllers\Admin\Policy\PolicyController;
+use App\Http\Controllers\Admin\Package\PackageController;
+use App\Http\Controllers\Admin\Settings\SettingsController;
+use App\Http\Controllers\Admin\Dashboard\DashboardController;
+use App\Http\Controllers\Admin\Destination\DestinationController;
 
 
 /*
@@ -31,15 +34,35 @@ Route::name('web.')->group(function () {
     Route::get('about', [HomeController::class, 'about'])->name('about');
     Route::get('contact', [HomeController::class, 'contact'])->name('contact');
     // package route
-    Route::get('destination/{uuid}/packages',[HomeController::class,'package'])->name('package');
-    Route::get('captcha',[HomeController::class,'captcha'])->name('captcha');
+    Route::get('destination/{uuid}/packages', [HomeController::class, 'package'])->name('package');
+    Route::get('captcha', [HomeController::class, 'captcha'])->name('captcha');
 
-    Route::post('query',[HomeController::class,'queryStore'])->name('query');
+    Route::post('query', [HomeController::class, 'queryStore'])->name('query');
 
     // Footer links
-    Route::get('privacy-policy',[HomeController::class,'privacyPolicy'])->name('privacy-policy');
-    Route::get('shipping',[HomeController::class,'shipping'])->name('shipping');
-    Route::get('terms-and-conditions',[HomeController::class,'termsAndConditions'])->name('terms-and-conditions');
+    Route::get('privacy-policy', [HomeController::class, 'privacyPolicy'])->name('privacy-policy');
+    Route::get('shipping', [HomeController::class, 'shipping'])->name('shipping');
+    Route::get('terms-and-conditions', [HomeController::class, 'termsAndConditions'])->name('terms-and-conditions');
+});
+
+Route::name('agent.')->group(function () {
+    Route::get('agent/login', [AgentController::class, 'loginPage'])->name('login');
+    Route::post('agent/store', [AgentController::class, 'store'])->name('store');
+    Route::get('agent/verification', [AgentController::class, 'verification_page'])->name('verification');
+    Route::post('agent/verifyDetails', [AgentController::class, 'verifyDetails'])->name('verifyDetails');
+
+    // Send OTP (Phone or Email)
+    Route::post('/send-otp', [MailController::class, 'sendOtp'])->name('sendOtp');
+
+    // Resend OTP
+    Route::post('/agent/resendOtp', [MailController::class, 'resendOtp'])->name('resendOtp');
+
+    // Verify OTP
+    Route::post('/agent/verifyOtp', [MailController::class, 'verifyOtp'])->name('verifyOtp');
+
+    // check status for email verification
+    Route::get('/agent/check-verification-status', [MailController::class, 'checkVerificationStatus'])->name('checkVerificationStatus');
+
 });
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -74,6 +97,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         //setting routes
         Route::resource('settings', SettingsController::class);
+        Route::resource('policy', PolicyController::class);
     });
 });
-

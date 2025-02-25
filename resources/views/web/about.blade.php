@@ -8,7 +8,7 @@
                 <div class="col-xl-4 align-items-center d-xl-flex d-none">
                     <div class="topbar-contact-left">
                         <ul class="contact-list">
-                            <li><i class="bi bi-telephone-fill"></i> <a href="tel:+918062182339">+91-8062182339</a></li>
+                            <li><i class="bi bi-telephone-fill"></i> <a href="tel:+91806218233339">+91-806213382339</a></li>
                         </ul>
                     </div>
                 </div>
@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-xl-3 col-lg-6 col-md-6 d-md-flex  d-none align-items-center justify-content-end">
                     <ul class="topbar-social-links">
-                        <li><a href="https://www.instagram.com/travelleads.in/profilecard/?igsh=dWZlY3R2ZHFtOTlj"><i
+                        <li><a href="{{ $instagram->value ?? ''}}"><i
                                     class='bx bxl-instagram-alt'></i></a></li>
                         <li><a
                                 href="https://api.whatsapp.com/send?phone=918062182339&amp;text=Hello,%20Travel%20Leads%20!%20Please%20share%20exclusive%20Goa%20tour%20packages%20deals"><i

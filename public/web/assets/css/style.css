@@ -2871,11 +2871,11 @@ header .header-style-four .nav-right .nav-right-hotline .hotline-info h6 a{
     font-size:16px;
     text-transform:capitalize;
     color:#fff;
-    background:#D31F4A;
+    background:#d31f4a80;
     border-radius:3px;
     position:absolute;
     padding:9px 32px;
-    bottom:0;
+    bottom:22px;
     left:20px;
     transform:translateY(50%);
     clip-path:polygon(9% 0,90% 3%,100% 94%,0 100%)
@@ -6164,7 +6164,7 @@ header .header-style-four .nav-right .nav-right-hotline .hotline-info h6 a{
     color:inherit
 }
 .footer-area .footer-bottom{
-    background:#162b32;
+    background: #000000e3 !important;
     color:#fff;
     padding:13px 0
 }

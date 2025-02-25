@@ -60,7 +60,7 @@
                         <ul>
                             <li>
                                 <h6>Let’s Talk</h6>
-                                <a href="tel:+918062182339">+91-{{ $contact['phone'] }}</a>
+                                <a href="tel:+918062182339">+91-{{ $contact['phone'] ?? '' }}</a>
                             </li>
                             <li>
                                 <h6>Visit Us.</h6>
@@ -68,7 +68,7 @@
                             </li>
                             <li>
                                 <h6>Address</h6>
-                                <a href="#">{{ $contact['address'] }}</a>
+                                <a href="#">{{ $contact['address'] ?? '' }}</a>
                             </li>
                         </ul>
                     </div>

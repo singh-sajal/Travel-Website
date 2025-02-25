@@ -1,8 +1,26 @@
 <!doctype html>
 <html lang="en">
+@php
+    use App\Models\Setting;
 
+    $setting = Setting::where('key', 'logo')
+                        ->orWhere('key', 'fevicon')
+                        ->orWhere('common_key','social_link')
+                        ->orWhere('common_key','contact')
+                        ->get();
 
-<!-- Mirrored from www.travelleads.in/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 01 Feb 2025 08:37:41 GMT -->
+    $logo= $setting->where('key', 'logo')->first();
+    $fevicon= $setting->where('key', 'fevicon')->first();
+    // $whatsapp= $setting->where('key', 'whatsapp')->first();
+    // $phone= $setting->where('key', 'phone')->first();
+    // $email= $setting->where('key', 'email')->first();
+    // $address= $setting->where('key', 'address')->first();
+    $social= $setting->where('common_key', 'social_link')->all();
+    // $instagram= $setting->where('key', 'instagram')->first();
+    // $twitter= $setting->where('key', 'twitter')->first();
+    // $linkedin= $setting->where('key', 'linkedin')->first();
+    // $youtube= $setting->where('key', 'youtube')->first();
+@endphp
 
 <head>
     <title>Travel Leads - Tour and Travels Agency </title>
@@ -12,7 +30,7 @@
         content="tour travel world,travel guide,tour packages,travel agents directory,hotels directory,tour operators,hotel deals">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="{{ asset('web/assets/images/favicon.png') }}" type="image/gif" sizes="20x20">
+    <link rel="icon" href="{{ asset($fevicon->value ?? '') }}" type="image/gif" sizes="20x20">
 
     <link rel="stylesheet" href="{{ asset('web/assets/css/select2.min.css') }}">
 

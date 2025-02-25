@@ -13,10 +13,10 @@ use Yajra\DataTables\Facades\DataTables;
 class PolicyRepository
 {
     protected $user;
-    public function __construct()
-    {
-        $this->user = Auth::guard('admin')->user();
-    }
+    // public function __construct()
+    // {
+    //     $this->user = Auth::guard('admin')->user();
+    // }
     // Course Level Manage
 
     public function buildDataTable(Request $request)

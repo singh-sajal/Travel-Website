@@ -40,8 +40,8 @@
 
                     <!-- Image Upload -->
                     <div class="col-md-6">
-                        <label for="image" class="form-label text-secondary required">Image</label>
-                        <input type="file" class="form-control required" id="image" name="image" accept="image/*"
+                        <label for="image" class="form-label text-secondary ">Image</label>
+                        <input type="file" class="form-control " id="image" name="image" accept="image/*"
                             required>
                         @error('image')
                             <span class="text-danger">{{ $message }}</span>

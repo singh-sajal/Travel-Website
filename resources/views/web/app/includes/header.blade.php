@@ -5,7 +5,7 @@
                 <div
                     class="col-xxl-2 col-xl-2 col-lg-12 col-md-12 col-sm-12 col-xs-12 align-items-center d-xl-flex d-lg-block">
                     <div class="nav-logo d-flex justify-content-between align-items-center">
-                        <a href="{{ route('web.home') }}"><img src="{{ asset('web/assets/images/logo.png') }}" alt="logo"></a>
+                        <a href="{{ route('web.home') }}"><img src="{{ asset($logo->value ?? '') }}" alt="logo"></a>
                         <div class="mobile-menu d-flex ">
                             <div class="d-flex align-items-center">
                                 <div class="nav-right-icons d-xl-none d-flex align-items-center ">
@@ -24,7 +24,7 @@
                 <div class="col-xxl-7 col-xl-8 col-lg-9 col-md-8 col-sm-6 col-xs-6">
                     <nav class="main-nav">
                         <div class="inner-logo d-xl-none text-center">
-                            <a href="index.html"><img src="{{ asset('web/assets/images/logo.png') }}"
+                            <a href="{{ route('web.home') }}"><img src="{{ asset($logo->value ?? '') }}"
                                     alt=""></a>
                         </div>
                         <ul>
@@ -53,13 +53,13 @@
                                 </ul>
                             </li>
 
-                            <li><a href="https://travelleads.in/vendors/" target="_blank">Register As Travel Agent</a>
+                            <li><a href="{{ route('vendor.login') }}" target="_blank">Register As Travel Agent</a>
                             </li>
                             <li><a href="{{ route('web.contact') }}">Contact Us</a></li>
                         </ul>
                     </nav>
                 </div>
-                <div class="col-xxl-3 col-xl-2 col-lg-1">
+                {{-- <div class="col-xxl-3 col-xl-2 col-lg-1">
                     <div class="nav-right d-xl-flex d-none">
                         <div class="nav-right-hotline d-xxl-flex d-none">
                             <div style="margin: 10px 10px 10px 5px;">
@@ -67,12 +67,12 @@
                             </div>
                             <div class="hotline-info">
                                 <span>Hot Line Number</span>
-                                <h6><a href="tel:+918062182339">+91-8062182339</a></h6>
+                                <h6><a href="tel:+9184574443">+91-8457843758</a></h6>
                             </div>
                         </div>
 
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

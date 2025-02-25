@@ -184,7 +184,7 @@ class SettingsRepository
                     return response()->json(['status' => '400', 'errors' => $validated->errors()]);
                 }
                 if ($request->hasFile('logo')) {
-                    $data['value'] = $this->Crop($request->logo, 120, 66, $this->base_path) ?? null;
+                    $data['value'] = $this->Crop($request->logo, 150, 42, $this->base_path) ?? null;
                     $this->ImgDel($setting->value);
                 } elseif ($request->hasFile('fevicon')) {
                     $data['value'] = $this->Crop($request->fevicon, 48, 48, $this->base_path) ?? null;
