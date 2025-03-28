@@ -45,34 +45,16 @@ Route::name('web.')->group(function () {
     Route::get('terms-and-conditions', [HomeController::class, 'termsAndConditions'])->name('terms-and-conditions');
 });
 
-Route::name('agent.')->group(function () {
-    Route::get('agent/login', [AgentController::class, 'loginPage'])->name('login');
-    Route::post('agent/store', [AgentController::class, 'store'])->name('store');
-    Route::get('agent/verification', [AgentController::class, 'verification_page'])->name('verification');
-    Route::post('agent/verifyDetails', [AgentController::class, 'verifyDetails'])->name('verifyDetails');
 
-    // Send OTP (Phone or Email)
-    Route::post('/send-otp', [MailController::class, 'sendOtp'])->name('sendOtp');
-
-    // Resend OTP
-    Route::post('/agent/resendOtp', [MailController::class, 'resendOtp'])->name('resendOtp');
-
-    // Verify OTP
-    Route::post('/agent/verifyOtp', [MailController::class, 'verifyOtp'])->name('verifyOtp');
-
-    // check status for email verification
-    Route::get('/agent/check-verification-status', [MailController::class, 'checkVerificationStatus'])->name('checkVerificationStatus');
-
-});
 
 Route::prefix('admin')->name('admin.')->group(function () {
 
-    Route::middleware('guest')->group(function () {
+    Route::middleware('guest:web')->group(function () {
         Route::get('login', [AuthController::class, 'loginPage'])->name('auth.login');
         Route::post('login', [AuthController::class, 'login'])->name('auth.login');
     });
 
-    Route::middleware('auth', 'revalidateSession')->group(function () {
+    Route::middleware('auth:web', 'revalidateSession')->group(function () {
 
         Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');

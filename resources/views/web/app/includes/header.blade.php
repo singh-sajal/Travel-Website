@@ -53,7 +53,7 @@
                                 </ul>
                             </li>
 
-                            <li><a href="{{ route('vendor.login') }}" target="_blank">Register As Travel Agent</a>
+                            <li><a href="{{ route('agent.login') }}" target="_blank">Register As Travel Agent</a>
                             </li>
                             <li><a href="{{ route('web.contact') }}">Contact Us</a></li>
                         </ul>

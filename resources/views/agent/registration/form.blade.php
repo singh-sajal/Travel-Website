@@ -24,7 +24,7 @@
             <div class="col-md-5 bg-white p-4 rounded-3 shadow border">
                 <div class="text-center mb-4">
                     <img src="{{ asset($logo->value) }}" alt="Logo" class="mb-3" style="max-width: 100px;">
-                    <h4 class="mt-3">Signup</h4>
+                    <h4 class="mt-3">Register</h4>
                 </div>
 
                 @if (session('success'))

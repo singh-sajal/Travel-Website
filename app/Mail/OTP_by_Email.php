@@ -44,7 +44,7 @@ class OTP_by_Email extends Mailable
     public function content()
     {
         return new Content(
-            view: 'agent.mailOTP',
+            view: 'agent.registration.mailOTP',
         );
     }
 

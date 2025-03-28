@@ -40,16 +40,16 @@
                 <div class="col-md-6 bg-white p-4 rounded-3 shadow border">
                     <h4 class="text-center mb-4">Verify Your Details</h4>
 
-                    <form action="agent.verifyDetails" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('agent.verifyDetails') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         <!-- Phone Verification Section -->
                         <div class="mb-3">
                             <label class="form-label">Mobile Number</label>
                             <div class="input-group" id="phoneVerification"> <!-- Added ID -->
-                                <input type="text" class="form-control" value="{{ $agent->phone }}" readonly>
+                                <input type="text" class="form-control" name="phone" value="{{ $agent->phone }}" readonly>
                                 @if ($agent->phone_verified == 1)
-                                    <i class="fa-solid fa-check text-success fs-4 mt-2"></i>
+                                    <i class="fa-solid fa-check text-success fs-4 mt-2 ms-2"></i>
                                 @else
                                     <button type="button" class="btn btn-success" data-bs-toggle="modal"
                                         data-bs-target="#otpModal" onclick="sendOTP('Whatsapp')">Send OTP</button>
@@ -61,9 +61,9 @@
                         <div class="mb-3">
                             <label class="form-label">Email</label>
                             <div class="input-group" id="emailVerification"> <!-- Added ID -->
-                                <input type="email" class="form-control" value="{{ $agent->email }}" readonly>
+                                <input type="text" class="form-control" name="email" value="{{ $agent->email }}" readonly>
                                 @if ($agent->email_verified == 1)
-                                    <i class="fa-solid fa-check text-success fs-4 my-2 mt-2"></i>
+                                    <i class="fa-solid fa-check text-success fs-4 mt-2 ms-2"></i>
                                 @else
                                     <button type="button" class="btn btn-success" data-bs-toggle="modal"
                                         data-bs-target="#otpModal" onclick="sendOTP('email')">Send OTP</button>
@@ -90,7 +90,7 @@
                             <input type="file" class="form-control" name="pan_card" accept="image/*" required>
                         </div>
 
-                        <button type="submit" class="btn btn-danger w-100">Submit Verification</button>
+                        <button type="submit" class="btn btn-danger w-100" disabled>Submit Verification</button>
                     </form>
                 </div>
             </div>
@@ -250,24 +250,25 @@
                 .then(response => response.json())
                 .then(data => {
                     let phoneHTML = `
-                        <input type="text" class="form-control mb-2" value="{{ $agent->phone }}" readonly>
+                                <input type="text" class="form-control" name="phone" value="{{ $agent->phone }}" readonly>
                     `;
 
                     if (data.phone_verified) {
                         phoneHTML += '<i class="fa-solid fa-check text-success fs-4 mt-2"></i>';
                     } else {
-                        phoneHTML += `
-                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#otpModal" onclick="sendOTP('Whatsapp')">Send OTP</button>
-                        `;
+                        phoneHTML +=
+                            `<button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                        data-bs-target="#otpModal" onclick="sendOTP('Whatsapp')">Send OTP</button>`;
                     }
                     document.getElementById("phoneVerification").innerHTML = phoneHTML;
 
                     let emailHTML = `
-                        <input type="text" class="form-control mb-2" value="{{ $agent->email }}" readonly>
+                            <input type="text" class="form-control" name="email" value="{{ $agent->email }}" readonly>
+
                     `;
 
                     if (data.email_verified) {
-                        emailHTML += '<i class="fa-solid fa-check text-success fs-4 mt-2"></i>';
+                        emailHTML += '<i class="fa-solid fa-check text-success fs-4 mt-2 ms-2"></i>';
                     } else {
                         emailHTML += `
                             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#otpModal" onclick="sendOTP('email')">Send OTP</button>
@@ -281,6 +282,28 @@
         // Check verification status every 5 seconds
         setInterval(checkVerificationStatus, 5000);
     </script>
+
+    <script>
+        function checkVerificationCompletion() {
+            let phoneVerified = document.querySelector("#phoneVerification i.fa-check") !== null;
+            let emailVerified = document.querySelector("#emailVerification i.fa-check") !== null;
+
+            let submitButton = document.querySelector("button[type='submit']");
+
+            if (phoneVerified && emailVerified) {
+                submitButton.disabled = false; // Enable button
+            } else {
+                submitButton.disabled = true; // Disable button
+            }
+        }
+
+        // Run the function initially to check the status on page load
+        checkVerificationCompletion();
+
+        // Re-run the function whenever verification status changes
+        setInterval(checkVerificationCompletion, 2000);
+    </script>
+
 
 
 </body>

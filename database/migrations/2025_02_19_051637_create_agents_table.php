@@ -29,6 +29,10 @@ return new class extends Migration
             $table->string('company_name')->nullable();
             $table->string('company_document')->nullable();
             $table->string('company_id')->nullable();
+            $table->string('company_state')->nullable();
+            $table->string('company_city')->nullable();
+            $table->string('company_address')->nullable();
+            $table->string('company_pincode')->nullable();
             $table->timestamps();
         });
     }

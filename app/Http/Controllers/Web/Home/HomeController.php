@@ -68,9 +68,16 @@ class HomeController extends Controller
                 'email' => 'required|email',
                 'phone' => 'required|numeric',
                 'city' => 'required|string|max:255',
+                'person' => 'required|numeric|min:1',
+                'date' => 'required|date|after_or_equal:today',
+                'package' => 'required|exists:packages,id',
                 'captcha' => 'required|min:6|max:6'
+            ],
+            [
+                'date.after_or_equal' => 'You cannot select a past date.',
             ]
         );
+
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
@@ -78,30 +85,48 @@ class HomeController extends Controller
         if (session()->get('captchaText') != $request->captcha) {
             return back()->with('failure', 'Invalid captcha, Please try again');
         }
+
         $data = [
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
-            'city' => $request->city,
-            'uuid' => Str::uuid()
+            'pickup_location' => $request->city,
+            'uuid' => Str::uuid(),
+            'no_of_persons' => $request->person,
+            'expected_date' => $request->date,
+            'package_id' => $request->package,
         ];
 
-        if (Query::Create($data)) {
-            return redirect()->back()->with('success','We will contact you soon...');
+        if($request->price >= 10000){
+            $data['lead_value'] = 40;
         }
+        else{
+            $data['lead_value'] = 20;
+        }
+
+        // return $data;
+        if (Query::create($data)) {
+            return redirect()->back()->with('success', 'We will contact you soon...');
+        }
+
+        return redirect()->back()->with('failure', 'Something went wrong, please try again.');
     }
 
-    public function privacyPolicy(){
+
+    public function privacyPolicy()
+    {
         $contact = $this->contact;
-        $policy = Policy::where('key','privacy')->first();
-        return view('web.privacyPolicy',compact('contact','policy'));
+        $policy = Policy::where('key', 'privacy')->first();
+        return view('web.privacyPolicy', compact('contact', 'policy'));
     }
 
-    public function shipping(){
+    public function shipping()
+    {
         return view('web.shipping&delivery');
     }
 
-    public function termsAndConditions(){
+    public function termsAndConditions()
+    {
         return view('web.terms&conditions');
     }
 }
