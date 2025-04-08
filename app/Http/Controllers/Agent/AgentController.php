@@ -142,23 +142,6 @@ class AgentController extends Controller
         return view('agent.home');
     }
 
-    public function buyLeads()
-    {
-        $leads = Query::with([
-            'package',
-            'package.destination'
-        ])
-            ->where('status', 1)->get();
-        // return $leads;
-        return view('agent.buyLeads', compact('leads'));
-    }
-
-
-    public function myLeads()
-    {
-        return view('agent.myLeads');
-    }
-
     public function myAccount()
     {
         return view('agent.myAccount');
@@ -218,7 +201,7 @@ class AgentController extends Controller
         return view('agent.personalDetails');
     }
 
-    
+
 
     public function supportPage(){
         return view('agent.support');

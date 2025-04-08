@@ -4,10 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
 
@@ -246,8 +250,12 @@
 </head>
 
 <body>
-
-    <div class="container  mb-5">
+    @php
+        use Illuminate\Support\Facades\Auth;
+        $agent = Auth::guard('agent')->user();
+        $balance = $agent->getFinalBalance();
+    @endphp
+    <div class="container my-3">
         {{-- Dynamic Header --}}
         @if (request()->routeIs('agent.home'))
             <div class="d-flex justify-content-between align-items-center ">
@@ -257,14 +265,12 @@
                 </div>
                 <a href="{{ route('agent.wallet') }}"
                     class="text-light fw-bold d-flex align-items-center text-decoration-none btn btn-success">
-                    <i class="fa fa-wallet me-1"></i> 0
+                    <i class="fa fa-wallet me-1"></i><span id="balance-display"> {{ $balance}}</span>
                 </a>
             </div>
         @else
             <div class="header">
-                {{-- <a href="{{ url()->previous() }}" class="back-btn" style="color: black;">
-                    <i class="fa-solid fa-arrow-left"></i>
-                </a> --}}
+
                 <button class="back-btn" style="color: black;" onclick="window.history.back()"><i
                         class="fa-solid fa-arrow-left"></i></button>
                 @if (session('success'))
@@ -287,18 +293,20 @@
                 <h2>@yield('page-title')</h2>
                 <a href="{{ route('agent.wallet') }}"
                     class="text-light fw-bold d-flex align-items-center text-decoration-none btn btn-success">
-                    <i class="fa fa-wallet me-1"></i> 0
+                    <i class="fa fa-wallet me-1"></i><span id="balance-display">{{ $balance }}</span>
+
                 </a>
             </div>
         @endif
 
         @yield('content')
-
     </div>
+
+
 
     @include('agent.app.includes.footer')
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     {{-- alerts --}}
     <script>
         // Hide session message after 4 seconds
@@ -312,7 +320,8 @@
     </script>
 
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-
+    <!-- Bootstrap JS Bundle (includes Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     @yield('javascript')
 

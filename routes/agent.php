@@ -44,27 +44,34 @@ Route::middleware('guest:agent')->group(function () {
 Route::middleware(['auth:agent', 'revalidateSession'])->group(function () {
 
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('change-password', [AuthController::class, 'changePassword'])->name('changePassword');
+    Route::post('update-password', [AuthController::class, 'updatePassword'])->name('updatePassword');
+
+
     Route::get('home', [AgentController::class, 'home'])->name('home');
     Route::get('myAccount', [AgentController::class, 'myAccount'])->name('myAccount');
     Route::get('analytics_and_report', [AgentController::class, 'analyticsAndReport'])->name('analyticsAndReport');
     Route::get('companyInfo', [AgentController::class, 'companyInfo'])->name('companyInfo');
     Route::post('store-Company-Info', [AgentController::class, 'storeCompanyInfo'])->name('storeCompanyInfo');
     Route::get('personal-details', [AgentController::class, 'personalDetails'])->name('personalDetails');
+    Route::get('support', [AgentController::class, 'supportPage'])->name('support');
+
 
     Route::get('buyLeads', [LeadController::class, 'buyLeads'])->name('buyLeads');
     Route::get('myLeads', [LeadController::class, 'myLeads'])->name('myLeads');
     Route::get('filter-leads', [LeadController::class, 'filterLeads'])->name('filterLeads');
+    Route::get('filter-my-leads', [LeadController::class, 'filterMyLeads'])->name('filterMyLeads');
+    Route::post('boughtLead', [LeadController::class, 'boughtLead'])->name('boughtLead');
+    Route::get('balance', [LeadController::class, 'balance'])->name('balance');
 
-    Route::get('boughtLead', [LeadController::class, 'boughtLead'])->name('boughtLead');
 
 
 
-    Route::get('change-password', [AuthController::class, 'changePassword'])->name('changePassword');
-    Route::post('update-password', [AuthController::class, 'updatePassword'])->name('updatePassword');
+
 
     Route::get('wallet', [WalletController::class, 'walletPage'])->name('wallet');
 
 
-    Route::get('support', [AgentController::class, 'supportPage'])->name('support');
+
 
 });
