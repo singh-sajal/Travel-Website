@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Package;
 use App\Models\Destination;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Agent\MailController;
@@ -71,6 +72,17 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('package', PackageController::class);
 
         Route::resource('query', QueryController::class);
+        Route::get('/api/packages/by-destination/{destination}', function ($destinationId) {
+            return \App\Models\Package::where('destination_id', $destinationId)->get(['id', 'title', 'price', 'days', 'nights']);
+        });
+        // Route::get('/api/packages/by-destination/{destinationId}', function ($destinationId) {
+        //     return Package::where('destination_id', $destinationId)
+        //         ->select('id', 'name', 'price', 'days', 'nights')
+        //         ->get();
+        // });
+
+
+
 
 
         // Route::patch('faqs/toggle-status/{uuid}', [FaqsController::class, 'toggleStatus'])->name('faqs.toggleStatus');

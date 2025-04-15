@@ -11,8 +11,13 @@ class Query extends Model
     use HasFactory;
     protected $guarded = ['id'];
 
-    public function package(){
-        return $this->belongsTo(Package::class,'package_id','id');
+    public function package()
+    {
+        return $this->belongsTo(Package::class, 'package_id', 'id');
     }
 
+    public function getPackageNameAttribute()
+    {
+        return $this->package?->name;
+    }
 }

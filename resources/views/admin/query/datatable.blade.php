@@ -3,7 +3,7 @@
         <td>{{ $query->name }}</td>
         <td>{{ $query->email }}</td>
         <td>{{ $query->phone }}</td>
-        <td>{{ $query->city }}</td>
+        <td>{{ $query->package_name }}</td>
         <td>{{ $query->created_at->format('d-m-y') }}</td>
         <td>
             <div>

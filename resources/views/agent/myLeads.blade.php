@@ -169,20 +169,41 @@
                 </div>
                 <p><small>Lead Added on
                         {{ \Carbon\Carbon::parse($lead->created_at)->format('F j, Y \a\t g:i:s A') }}</small></p>
-                <div class="lead-info">
-                    <p><strong>Lead ID:</strong> #{{ $lead->id }}</p>
-                    <p><strong>No. of Travellers:</strong> {{ $lead->no_of_persons }} adult(s)</p>
-                    <p><strong>Customer Location:</strong> {{ $lead->pickup_location }}</p>
-                    <p><strong>Destination:</strong> {{ $lead->package->destination->title ?? 'NA' }}</p>
-                    <p><strong>Phone:</strong> <b>{{ $lead->phone ?? 'NA' }}</b></p>
-                    <p><strong>Email:</strong> <b>{{ $lead->email ?? 'NA' }}</b></p>
-                    <p><strong>Price:</strong> ₹{{ number_format($lead->package->price, 2) }}</p>
-                    <p><strong>Travel Date / Time:</strong>
-                        {{ \Carbon\Carbon::parse($lead->expected_date)->format('F j, Y') }}
-                        ({{ $lead->package->duration_nights }}N {{ $lead->package->duration_days }}D trip)
-                    </p>
-                </div>
+                <div class="d-flex flex-column flex-md-row justify-content-between ">
+                    <div class="lead-info col-12 col-md-8">
+                        <p><strong>Lead ID:</strong> #{{ $lead->id }}</p>
+                        <p><strong>No. of Travellers:</strong> {{ $lead->no_of_persons }} adult(s)</p>
+                        <p><strong>Customer Location:</strong> {{ $lead->pickup_location }}</p>
+                        <p><strong>Destination:</strong> {{ $lead->package->destination->title ?? 'NA' }}</p>
+                        {{-- <p><strong>Phone:</strong> <b>{{ $lead->phone ?? 'NA' }}</b> <i class="fa-solid fa-phone-volume ms-3"></i></p> --}}
+                        <p>
+                            <strong>Phone:</strong>
+                            @if ($lead->phone)
+                                <a href="tel:{{ $lead->phone }}" class="text-dark text-decoration-none">
+                                    <b>{{ $lead->phone }}</b> <i
+                                        class="fa-solid fa-phone-volume fa-lg ms-3 text-success"></i>
+                                </a>
+                            @else
+                                <b>NA</b>
+                            @endif
+                        </p>
 
+                        <p><strong>Email:</strong> <b>{{ $lead->email ?? 'NA' }}</b></p>
+                        <p><strong>Price:</strong> ₹{{ number_format($lead->package->price, 2) }}</p>
+                        <p><strong>Travel Date / Time:</strong>
+                            {{ \Carbon\Carbon::parse($lead->expected_date)->format('F j, Y') }}
+                            ({{ $lead->package->duration_nights }}N {{ $lead->package->duration_days }}D trip)
+                        </p>
+                    </div>
+                    <div class="col-12 col-md-3 mt-3 mt-md-0">
+                        <label for="followUp_{{ $lead->id }}" class="form-label fw-semibold">Follow Up</label>
+                        <select class="form-select follow-up-select" data-id="{{ $lead->id }}">
+                            <option value="">-- Select --</option>
+                            <option value="wait" {{ $lead->follow_up === 'wait' ? 'selected' : '' }}>Wait</option>
+                            <option value="done" {{ $lead->follow_up === 'done' ? 'selected' : '' }}>Done</option>
+                        </select>
+                    </div>
+                </div>
                 <!-- Deal Done Button -->
                 <div class="text-center mt-4">
                     <button type="button" class="btn btn-success btn-lg px-4 py-2 rounded-pill shadow-sm">
@@ -193,7 +214,7 @@
         @endforeach
     </div>
 
-    <!-- Offcanvas Bottom -->
+    <!-- Offcanvas filter sheet -->
     <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel"
         style="max-width: 600px; margin: auto; height: 65vh; border-top-left-radius: 20px; border-top-right-radius: 20px; box-shadow: 0 -4px 15px rgba(0,0,0,0.1);">
 
@@ -274,6 +295,38 @@
             button.addEventListener('click', () => {
                 const content = button.nextElementSibling;
                 content.style.display = content.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+    </script>
+
+    <script>
+        document.querySelectorAll('.follow-up-select').forEach(select => {
+            select.addEventListener('change', function() {
+                const leadId = this.getAttribute('data-id');
+                const status = this.value;
+
+                fetch(`/agent/leads/${leadId}/follow-up`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({
+                            status: status
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert("Follow-up status updated to " + status);
+                        } else {
+                            alert("Failed to update status");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        alert("Something went wrong!");
+                    });
             });
         });
     </script>

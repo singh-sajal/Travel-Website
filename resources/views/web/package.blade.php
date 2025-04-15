@@ -321,14 +321,7 @@
                                 @enderror
                             </div>
                         </div>
-                        {{-- <div class="col-lg-6">
-                            <div class="custom-input-group">
-                                <input type="text" name="destination" placeholder="Your Destination" required>
-                                @error('destination')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div> --}}
+                        
                         <!-- Package Selector Dropdown with an ID for easy reference -->
                         <div class="col-lg-6">
                             <div class="custom-input-group">

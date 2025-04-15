@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('final_balance')->nullable();
             $table->foreignId('query_id')->nullable()
                 ->references('id')->on('queries')->onDelete('cascade');
+            $table->mediumText('description');
             $table->timestamps();
         });
     }

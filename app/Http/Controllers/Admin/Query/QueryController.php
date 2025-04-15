@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Query;
 
 use App\Models\Query;
+use App\Models\Destination;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -46,7 +47,8 @@ class QueryController extends Controller
     // Show the form for creating a new query
     public function create()
     {
-        return view('admin.query.create');
+        $destinations = Destination::all(); // Make sure each has `type` field
+        return view('admin.query.create', compact('destinations'));
     }
 
     // Store a new query
