@@ -197,11 +197,17 @@
                     </div>
                     <div class="col-12 col-md-3 mt-3 mt-md-0">
                         <label for="followUp_{{ $lead->id }}" class="form-label fw-semibold">Follow Up</label>
-                        <select class="form-select follow-up-select" data-id="{{ $lead->id }}">
+                        <select
+                            class="form-select follow-up-select
+                            {{ $lead->follow_up_status === 'done' ? 'follow-done' : '' }}
+                            {{ $lead->follow_up_status === 'wait' ? 'follow-wait' : '' }}"
+                            data-id="{{ $lead->id }}">
+
                             <option value="">-- Select --</option>
-                            <option value="wait" {{ $lead->follow_up === 'wait' ? 'selected' : '' }}>Wait</option>
-                            <option value="done" {{ $lead->follow_up === 'done' ? 'selected' : '' }}>Done</option>
+                            <option value="wait" {{ $lead->follow_up_status === 'wait' ? 'selected' : '' }}>Wait</option>
+                            <option value="done" {{ $lead->follow_up_status === 'done' ? 'selected' : '' }}>Done</option>
                         </select>
+
                     </div>
                 </div>
                 <!-- Deal Done Button -->

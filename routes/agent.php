@@ -63,6 +63,8 @@ Route::middleware(['auth:agent', 'revalidateSession'])->group(function () {
     Route::get('filter-my-leads', [LeadController::class, 'filterMyLeads'])->name('filterMyLeads');
     Route::post('boughtLead', [LeadController::class, 'boughtLead'])->name('boughtLead');
     Route::get('balance', [LeadController::class, 'balance'])->name('balance');
+    Route::post('leads/{lead}/follow-up', [LeadController::class, 'updateFollowUp'])->name('agent.leads.followup');
+
 
 
 

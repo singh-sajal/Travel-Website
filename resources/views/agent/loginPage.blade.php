@@ -20,7 +20,7 @@
         input:focus, textarea:focus, select:focus, button:focus {
             outline: none !important;
             box-shadow: none !important;
-            border: 2px solid #cccccc !important; /*Change border color to red */
+            border: 1px solid #cccccc !important; /*Change border color to red */
         }
     </style>
 
@@ -42,7 +42,7 @@
                     </div>
                 @endif
 
-                <form action="{{ route('agent.login') }}" method="POST" id="login-form">
+                <form action="{{ route('agent.login') }}" method="POST" id="login-form" autocomplete="off">
                     @csrf
 
                     <div class="mb-3" id="input-group">
@@ -119,47 +119,7 @@
         });
     </script>
 
-    {{-- <script>
-        document.getElementById("toggle-login").addEventListener("click", function() {
-            let phoneInput = document.getElementById("phone");
-            let emailInput = document.getElementById("email");
-            let phoneGroup = document.getElementById("phone-group");
-            let phoneLabel = document.getElementById("phone-label");
-            let emailLabel = document.getElementById("email-label");
-            let toggleBtn = document.getElementById("toggle-login");
-            let heading = document.getElementById("login-heading");
 
-            let isPhone = !phoneInput.classList.contains("d-none");
-
-            if (isPhone) {
-                // Switch to email login
-                heading.innerText = "Login with Email";
-                phoneLabel.classList.add("d-none");
-                phoneGroup.classList.add("d-none");
-                phoneInput.classList.add("d-none");
-                phoneInput.removeAttribute("name");
-
-                emailLabel.classList.remove("d-none");
-                emailInput.classList.remove("d-none");
-                emailInput.setAttribute("name", "email");
-
-                toggleBtn.innerText = "Login with Phone Number";
-            } else {
-                // Switch to phone login
-                heading.innerText = "Login with Phone Number";
-                emailLabel.classList.add("d-none");
-                emailInput.classList.add("d-none");
-                emailInput.removeAttribute("name");
-
-                phoneLabel.classList.remove("d-none");
-                phoneGroup.classList.remove("d-none");
-                phoneInput.classList.remove("d-none");
-                phoneInput.setAttribute("name", "phone");
-
-                toggleBtn.innerText = "Login with Email";
-            }
-        });
-    </script> --}}
 </body>
 
 </html>

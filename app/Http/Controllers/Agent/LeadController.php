@@ -262,7 +262,6 @@ class LeadController extends Controller
         } catch (Throwable $th) {
             return response()->json(['status' => 500, 'exception' => $th->getMessage(), 'trace' => $th->getTrace()]);
         }
-
     }
 
     public function balance()
@@ -288,5 +287,14 @@ class LeadController extends Controller
     function generateTransactionNumber($agentId)
     {
         return 'TXN-' . $agentId . '-' . strtoupper(uniqid());
+    }
+
+    public function updateFollowUp(Request $request, $id)
+    {
+        $lead = Query::findOrFail($id);
+        $lead->follow_up_status = $request->status;
+        $lead->save();
+
+        return response()->json(['success' => true]);
     }
 }
